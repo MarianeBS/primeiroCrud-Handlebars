@@ -1,0 +1,57 @@
+ <div class="container" style="background-color: #FFFFFF;">
+    <div class="row">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="#">SISTEMA WEB</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/index">Cadastrar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Consultar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>       
+        </nav>
+    </div>
+    <div class="row">
+        <form action="/cadastrar" method="POST" style="padding: 0px 30px 20px 30px;">
+            <div class="mb-3">
+                &nbsp;
+                <h3>Cadastrar - Agendamento de Potenciais Clientes</h3>
+                <p>Sistema utilizado para agendamento de serviços.</p>
+            </div>    
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Nome:</label>
+                <input type="nome" name="nome" class="form-control" id="nome">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Telefone:</label>
+                <input type="telefone" class="form-control" name="telefone" id="telefone" aria-describedby="emailHelp" placeholder="(XX) XXXX-XXXX">
+            </div>
+            <div class="mb-3">
+				<label for="inputState" class="form-label">Origem:</label>
+				<select id="origem" name="origem" class="form-select">
+					<option value="celular" selected>Celular</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="telegram">Telegram</option>
+				</select>	
+			</div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Data do Contato:</label>
+                <input type="date" class="form-control" required name="data_contato" id="data_contato">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Observação:</label>
+                <textarea class="form-control" id="observacao" name="observacao" rows="3"></textarea>
+            </div>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+        &nbsp;
+    </div>
+</div>
