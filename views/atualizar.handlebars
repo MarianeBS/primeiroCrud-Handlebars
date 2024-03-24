@@ -9,38 +9,34 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
-                            <button type="button" class="btn btn-dark">
-                                <li class="nav-item">
-                                    <a class="nav-link" style="color: white;" href="/">Cadastrar</a>
-                                </li>
-                            </button> 
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: white;" href="/">Cadastrar</a>
+                            </li>
                             <div style="padding: 3px;"></div>   
-                            <button type="button" class="btn btn-dark">    
-                                <li class="nav-item">
-                                    <a class="nav-link" style="color: white;" href="/consultar">Consultar</a>
-                                </li>
-                            </button>    
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: white;" href="/consultar">Consultar</a>
+                            </li>
                         </ul>
                     </div>
                 </div>    
             </nav>
         </div>
         <div class="row">
-            <form action="/cadastrar" method="POST" style="padding: 30px 30px 20px 30px; font-weight:bold;">
+            <form action="/atualizar/{{ postId }}" method="POST" style="padding: 30px 30px 20px 30px; font-weight:bold;">
                 <div class="mb-3">
-                    <h3 class="text-center" style="font-weight:bold;">Agendamento de Potenciais Clientes</h3>
+                    <h3 class="text-center" style="font-weight:bold;">Atualizar Agendamento</h3>
                 </div>    
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Nome:</label>
-                            <input type="nome" name="nome" class="form-control border border-dark" id="nome" placeholder="Digite seu nome">
+                            <input type="nome" name="nome" class="form-control border border-dark" id="nome" placeholder="Digite seu nome" value="{{ postId.nome }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Telefone:</label>
-                            <input type="telefone" class="form-control border border-dark" name="telefone border border-dark" id="telefone" aria-describedby="emailHelp" placeholder="(XX) XXXX-XXXX">
+                            <input type="telefone" class="form-control border border-dark" name="telefone border border-dark" id="telefone" aria-describedby="emailHelp" placeholder="(XX) XXXX-XXXX" value="{{ postId.telefone }}">
                         </div>
                     </div>
                 </div>
@@ -49,16 +45,16 @@
                         <div class="mb-3">
                             <label for="inputState" class="form-label">Origem:</label>
                             <select id="origem" name="origem" class="form-select border border-dark">
-                                <option value="celular" selected>Celular</option>
-                                <option value="whatsapp">WhatsApp</option>
-                                <option value="telegram">Telegram</option>
+                                <option value="celular" {{#if_eq postId.origem "celular"}}selected{{/if_eq}}>Celular</option>
+                                <option value="whatsapp" {{#if_eq postId.origem "whatsapp"}}selected{{/if_eq}}>WhatsApp</option>
+                                <option value="telegram" {{#if_eq postId.origem "telegram"}}selected{{/if_eq}}>Telegram</option>
                             </select>   
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Data do Contato:</label>
-                            <input type="date" class="form-control border border-dark" required name="data_contato" id="data_contato">
+                            <input type="date" class="form-control border border-dark" required name="data_contato" id="data_contato" value="{{ postId.data_contato }}">
                         </div>
                     </div>
                 </div>
@@ -66,13 +62,13 @@
                     <div class="col-md-12">
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Observação:</label>
-                            <textarea class="form-control border border-dark" id="observacao" name="observacao" rows="3"></textarea>
+                            <textarea class="form-control border border-dark" id="observacao" name="observacao" rows="3">{{ postId.observacao }}</textarea>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-dark">Cadastrar</button>
+                        <button type="submit" class="btn btn-dark">Atualizar</button>
                     </div>
                 </div>
             </form>

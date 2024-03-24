@@ -41,7 +41,7 @@ app.get("/consultar", function (req, res) {
 });
 
 //UPDATE
-app.get("/atualizar/:id", function(req, res) {
+app.post("/atualizar/:id", function(req, res) {
     const postId = req.params.id;
     const newData = {
         nome: req.body.nome,
@@ -53,11 +53,29 @@ app.get("/atualizar/:id", function(req, res) {
 
     post.update(newData, { where: { id: postId } })
         .then(function() {
-            res.redirect("/consultar");
+            res.redirect("/atualizar");
         })
         .catch(function(erro) {
             console.error("Erro ao atualizar os dados:", erro);
             res.render("atualizar", { postId: postId });
+        });
+});
+
+app.get("/atualizar", function(req, res){
+    res.redirect("/consultar")
+})
+
+//DELETE
+app.post("/excluir/:id", function(req, res) {
+    const postId = req.params.id;
+
+    post.destroy({ where: { id: postId } })
+        .then(function() {
+            res.redirect("/consultar");
+        })
+        .catch(function(erro) {
+            console.error("Erro ao excluir os dados:", erro);
+            res.render("consultar", { error: "Erro ao excluir os dados" });
         });
 });
 
