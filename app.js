@@ -1,10 +1,12 @@
 const express = require("express")
 const app = express()
+const {allowInsecurePrototypeAccess} = require("@handlebars/allow-prototype-access");
+const Handlebars = require("handlebars")
 const handlebars = require("express-handlebars").engine
 const bodyParser = require("body-parser")
-const post = require("./models/post")
+const Agendamentos = require("./models/post")
 
-app.engine("handlebars", handlebars({defaultLayout: "main"}))
+app.engine("handlebars", handlebars({defaultLayout: "main", handlebars: allowInsecurePrototypeAccess(Handlebars)}))
 app.set("view engine", "handlebars")
 
 app.use(bodyParser.urlencoded({extended: false}))
@@ -16,22 +18,22 @@ app.get("/", function(req, res){
 
 //CREATE
 app.post("/cadastrar", function(req, res){
-    post.create({
+    Agendamentos.create({
         nome: req.body.nome,
         telefone: req.body.telefone,
         origem: req.body.origem,
         data_contato: req.body.data_contato,
         observacao: req.body.observacao
     }).then(function(){
-        res.send("Dados enviados com sucesso!")
+        res.redirect("/consultar");
     }).catch(function(erro){
-        res.send("Falha ao cadastrar os dados" + erro)
+        res.redirect("/cadastrar");
     })
 })
 
 //READ
 app.get("/consultar", function (req, res) {
-    post.findAll() 
+    Agendamentos.findAll() 
       .then((posts) => {
         res.render("consultar", { posts: posts }); 
     }).catch((error) => {
@@ -41,7 +43,7 @@ app.get("/consultar", function (req, res) {
 });
 
 //UPDATE
-app.post("/atualizar/:id", function(req, res) {
+app.post("/atualizar/:id", async function(req, res) {
     const postId = req.params.id;
     const newData = {
         nome: req.body.nome,
@@ -51,9 +53,9 @@ app.post("/atualizar/:id", function(req, res) {
         observacao: req.body.observacao
     };
 
-    post.update(newData, { where: { id: postId } })
+    await Agendamentos.update(newData, { where: { id: postId } })
         .then(function() {
-            res.redirect("/atualizar");
+            res.redirect("/consultar");
         })
         .catch(function(erro) {
             console.error("Erro ao atualizar os dados:", erro);
@@ -61,15 +63,21 @@ app.post("/atualizar/:id", function(req, res) {
         });
 });
 
-app.get("/atualizar", function(req, res){
-    res.redirect("/consultar")
+app.get("/atualizar/:id", async function(req, res){
+    const post = await Agendamentos.findByPk(req.params.id)
+
+    if(post){
+        res.render("atualizar", { postId: post });
+    }else{
+        res.redirect("/consultar");
+    }
 })
 
 //DELETE
 app.post("/excluir/:id", function(req, res) {
     const postId = req.params.id;
 
-    post.destroy({ where: { id: postId } })
+    Agendamentos.destroy({ where: { id: postId } })
         .then(function() {
             res.redirect("/consultar");
         })
@@ -81,5 +89,5 @@ app.post("/excluir/:id", function(req, res) {
 
 
 app.listen(8081, function(){
-    console.log("Servidor ativo!")
+    console.log("Servidor ativo na porta 8081!")
 })

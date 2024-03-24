@@ -9,20 +9,24 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" style="color: white;" href="/">Cadastrar</a>
-                            </li>
+                            <button type="button" class="btn btn-dark">
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color: white;" href="/">Cadastrar</a>
+                                </li>
+                            </button> 
                             <div style="padding: 3px;"></div>   
-                            <li class="nav-item">
-                                <a class="nav-link" style="color: white;" href="/consultar">Consultar</a>
-                            </li>
+                            <button type="button" class="btn btn-dark">    
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color: white;" href="/consultar">Consultar</a>
+                                </li>
+                            </button>    
                         </ul>
                     </div>
                 </div>    
             </nav>
         </div>
         <div class="row">
-            <form action="/atualizar/{{ postId }}" method="POST" style="padding: 30px 30px 20px 30px; font-weight:bold;">
+            <form action="/atualizar/{{ postId.id }}" method="POST" style="padding: 30px 30px 20px 30px; font-weight:bold;">
                 <div class="mb-3">
                     <h3 class="text-center" style="font-weight:bold;">Atualizar Agendamento</h3>
                 </div>    
@@ -36,7 +40,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Telefone:</label>
-                            <input type="telefone" class="form-control border border-dark" name="telefone border border-dark" id="telefone" aria-describedby="emailHelp" placeholder="(XX) XXXX-XXXX" value="{{ postId.telefone }}">
+                            <input type="text" class="form-control border border-dark" name="telefone" id="telefone" aria-describedby="emailHelp" placeholder="(XX) XXXX-XXXX" value="{{ postId.telefone }}">
                         </div>
                     </div>
                 </div>
@@ -45,9 +49,9 @@
                         <div class="mb-3">
                             <label for="inputState" class="form-label">Origem:</label>
                             <select id="origem" name="origem" class="form-select border border-dark">
-                                <option value="celular" {{#if_eq postId.origem "celular"}}selected{{/if_eq}}>Celular</option>
-                                <option value="whatsapp" {{#if_eq postId.origem "whatsapp"}}selected{{/if_eq}}>WhatsApp</option>
-                                <option value="telegram" {{#if_eq postId.origem "telegram"}}selected{{/if_eq}}>Telegram</option>
+                                <option value="Celular">Celular</option>
+                                <option value="Whatsapp">WhatsApp</option>
+                                <option value="Telegram">Telegram</option>
                             </select>   
                         </div>
                     </div>
